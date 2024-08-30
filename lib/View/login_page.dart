@@ -11,14 +11,18 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    final availableHeight = height - keyboardHeight;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SingleChildScrollView(
-            child: SizedBox(
-              width: width,
-                height: height,
+        child: SingleChildScrollView(
+          //physics: ClampingScrollPhysics(),
+          child: SizedBox(
+            width: width,
+              height: availableHeight,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -61,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 35.0),
-                        child: Text("E-mail",style: TextStyle(color: Colors.red,fontSize:14.sp),),
+                        child: Text("Password",style: TextStyle(color: Colors.red,fontSize:14.sp),),
                       ),
                     ],
                   ),
@@ -83,7 +87,6 @@ class _LoginPageState extends State<LoginPage> {
 
                     ),
                   ),),
-
 
                 ],
               ),
