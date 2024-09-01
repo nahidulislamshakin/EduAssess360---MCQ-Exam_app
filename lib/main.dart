@@ -1,4 +1,5 @@
 import "package:eduasses360/utils/routes/routing.dart";
+import "package:eduasses360/view_model/loginPage_viewmodel.dart";
 import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:provider/provider.dart";
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<HomePageViewModel>(
           create: (context) => HomePageViewModel(),
         ),
+        ChangeNotifierProvider<LoginPageViewModel>(
+          create: (context) => LoginPageViewModel(),
+        )
       ],
       child: ScreenUtilInit(
 
@@ -42,15 +46,19 @@ class MyApp extends StatelessWidget {
 
               ),
               textTheme: TextTheme(
+                bodyLarge: TextStyle(fontSize:18.sp, fontWeight: FontWeight.bold),
                 bodyMedium: TextStyle(fontSize: 14.sp),
+                bodySmall: TextStyle(fontSize:12.sp),
                 titleLarge: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.bold,color: Colors.red,),
                 titleMedium: TextStyle(fontSize: 16.sp),
-                labelLarge: TextStyle(fontSize: 14.sp),
+                labelLarge: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.red),
+              //  button: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.red),
+
 
               )
             ),
             debugShowCheckedModeBanner: false,
-            initialRoute: RouteName.home,
+            initialRoute: RouteName.login,
             onGenerateRoute: RouteGenerator.generateRoute,
           );
         }
