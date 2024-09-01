@@ -16,6 +16,14 @@ class _LoginPageState extends State<LoginPage> {
   bool valid = true;
   final _formKey = GlobalKey<FormState>();
 
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(const AssetImage('assets/images/pencil.jpg'), context);
+  }
+
+
   @override
   void dispose() {
     // TODO: implement dispose
