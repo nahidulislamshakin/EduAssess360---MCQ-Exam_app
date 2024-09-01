@@ -17,11 +17,10 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    precacheImage(const AssetImage('assets/images/pencil.jpg'), context);
+  Future<void> _loadBackgroundImage(BuildContext context) async {
+    await precacheImage(const AssetImage('assets/images/pencil.jpg'), context);
   }
+
 
 
   @override
@@ -36,7 +35,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final lpvProvider = Provider.of<LoginPageViewModel>(context);
-    //errorMessage = lpvProvider.validateEmail(emailController);
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
@@ -45,133 +43,132 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: SingleChildScrollView(
-          //physics: ClampingScrollPhysics(),
-          child: Container(
-            width: width,
-            height: availableHeight,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/images/pencil.jpg'),
-                  fit: BoxFit.cover),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Login",
-                      style: Theme.of(context).textTheme.titleLarge,
+        child: FutureBuilder(
+          future: _loadBackgroundImage(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              // Show a loading indicator while the image is being loaded
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              // Handle the error if the image failed to load
+              return Center(child: Text("Failed to load background image"));
+            } else {
+              // Image is loaded, show the actual UI
+              return SingleChildScrollView(
+                child: Container(
+                  width: width,
+                  height: availableHeight,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/pencil.jpg'),
+                      fit: BoxFit.cover,
                     ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    InputBox(
-                      width: width,
-                      height: height,
-                      textField: TextFormField(
-                        controller: emailController,
-                        validator: (value) {
-                          errorMessage =
-                              lpvProvider.validateEmail(emailController);
-                          return errorMessage;
-                          //return lpvProvider.validateEmail(value ?? '');
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          //errorText: "",
-                          fillColor: Colors.white,
-                          filled: true,
-                          labelText: "Enter Email",
-                          labelStyle:
-                              TextStyle(color: Colors.grey, fontSize: 14.sp),
-                          iconColor: Colors.red,
-                          //  helperText: "Enter Email",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.r),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25.h,
-                    ),
-                    InputBox(
-                      width: width,
-                      height: height,
-                      textField: TextFormField(
-                        obscureText: true,
-                        controller: passwordController,
-                        decoration: InputDecoration(
-                          //icon: const Icon(),
-                          labelText: "Enter Password",
-                          labelStyle:
-                              TextStyle(color: Colors.grey, fontSize: 14.sp),
-                          iconColor: Colors.red,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.r),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Forgot Password?",
-                            style: Theme.of(context).textTheme.labelLarge,
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            // _formKey.currentState?.validate();
-                            // valid = false;
-                            Navigator.pushNamed(context,RouteName.home);
-                          },
-                          child: Text(
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
                             "Login",
-                            style: Theme.of(context).textTheme.labelLarge,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Don't have an account?",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "SIGN UP",
-                            style: Theme.of(context).textTheme.labelLarge,
+                          SizedBox(height: 15.h),
+                          InputBox(
+                            width: width,
+                            height: height,
+                            textField: TextFormField(
+                              controller: emailController,
+                              validator: (value) {
+                                final errorMessage =
+                                lpvProvider.validateEmail(emailController);
+                                return errorMessage;
+                              },
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                labelText: "Enter Email",
+                                labelStyle: TextStyle(
+                                    color: Colors.grey, fontSize: 14.sp),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
+                          SizedBox(height: 25.h),
+                          InputBox(
+                            width: width,
+                            height: height,
+                            textField: TextFormField(
+                              obscureText: true,
+                              controller: passwordController,
+                              decoration: InputDecoration(
+                                labelText: "Enter Password",
+                                labelStyle: TextStyle(
+                                    color: Colors.grey, fontSize: 14.sp),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "Forgot Password?",
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, RouteName.home);
+                                },
+                                child: Text(
+                                  "Login",
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 5.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Don't have an account?",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "SIGN UP",
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
+              );
+            }
+          },
         ),
       ),
     );
   }
+
 }
 
 class InputBox extends StatelessWidget {
