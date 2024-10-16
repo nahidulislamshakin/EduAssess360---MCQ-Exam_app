@@ -39,6 +39,9 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
               appBarTheme: AppBarTheme(
+                iconTheme: const IconThemeData(
+                  color: Colors.white,
+                ),
                 backgroundColor: Colors.grey,
                 centerTitle: true,
                 elevation: 8.0,
@@ -50,7 +53,7 @@ class MyApp extends StatelessWidget {
                 bodyMedium: TextStyle(fontSize: 14.sp),
                 bodySmall: TextStyle(fontSize:12.sp),
                 titleLarge: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.bold,color: Colors.red,),
-                titleMedium: TextStyle(fontSize: 16.sp),
+                titleMedium: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.black),
                 labelLarge: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.red),
               //  button: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.red),
 
