@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "198397395923",
+    "project_id": "eduasses360",
+    "storage_bucket": "eduasses360.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198397395923:android:9a1f2b9146f720cdee6526",
+        "android_client_info": {
+          "package_name": "com.example.eduasses360"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuglbQdTTtjxkmss58-qrtR_7-tBs2els"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

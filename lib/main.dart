@@ -1,12 +1,24 @@
 import "package:eduasses360/utils/routes/routing.dart";
 import "package:eduasses360/view_model/loginPage_viewmodel.dart";
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:provider/provider.dart";
 import "/utils/routes/route_name.dart";
 import "/view_model/homepage_viewmodel.dart";
+import "package:firebase_core/firebase_core.dart";
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyDtgFNbnq9Y7yJld59wrMvFHyYsljHwG7A",
+      appId: '1:198397395923:android:9a1f2b9146f720cdee6526',
+      projectId: 'eduasses360',
+      messagingSenderId:'198397395923'
+
+    )
+  );
   await ScreenUtil.ensureScreenSize();
   Provider.debugCheckInvalidValueType = null;
   runApp(const MyApp(),);
@@ -52,7 +64,7 @@ class MyApp extends StatelessWidget {
                 bodyLarge: TextStyle(fontSize:18.sp, fontWeight: FontWeight.bold),
                 bodyMedium: TextStyle(fontSize: 14.sp),
                 bodySmall: TextStyle(fontSize:12.sp),
-                titleLarge: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.bold,color: Colors.red,),
+                titleLarge: TextStyle(fontSize: 34.sp, fontWeight: FontWeight.bold,color: Colors.black,),
                 titleMedium: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.black),
                 labelLarge: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.red),
               //  button: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.red),
@@ -61,7 +73,7 @@ class MyApp extends StatelessWidget {
               )
             ),
             debugShowCheckedModeBanner: false,
-            initialRoute: RouteName.login,
+            initialRoute: FirebaseAuth.instance.currentUser !=null ? RouteName.home : RouteName.login,
             onGenerateRoute: RouteGenerator.generateRoute,
           );
         }

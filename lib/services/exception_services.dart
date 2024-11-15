@@ -1,6 +1,6 @@
 class AppException{
-  final _message;
-  final _prefix;
+  final String? _message;
+  final String? _prefix;
   AppException(this._message,this._prefix);
 
   @override

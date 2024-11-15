@@ -11,4 +11,17 @@ class Utils{
     );
 
   }
+
+  static redSnackBar({required BuildContext context, required String message}){
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message),backgroundColor: Colors.red,
+    showCloseIcon: true,),
+    );
+  }
+
+  static greenSnackBar({required BuildContext context, required String message}){
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message),backgroundColor: Colors.green,
+      showCloseIcon: true,),
+    );
+  }
+
 }
