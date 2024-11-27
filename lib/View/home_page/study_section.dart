@@ -16,25 +16,24 @@ class StudySection extends StatelessWidget {
             EdgeInsets.only(top: 5.0.h, bottom: 8.h, left: 2.w, right: 2.w),
         child: Column(
           children: [
-            SizedBox(
-              width: double.infinity,
-              height: 20.h,
-              child: Center(
-                child: Text(
-                  "Study Section",
-                  style: Theme.of(context).textTheme.titleMedium,
+            const SizedBox(height: 5,),
+            Center(
+              child: Text(
+                "Study Section",
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    fontSize: 22
                 ),
               ),
             ),
             SizedBox(
-              height: 10.h,
+              height:5.h,
             ),
             Row(
               children: [
                 Expanded(
                   child: GestureDetector(
                     onTap: () {},
-                    child: SectionDesign(text: "PDF Notes"),
+                    child: const SectionDesign(text: "PDF Notes"),
                   ),
                 ),
                 SizedBox(
@@ -45,39 +44,42 @@ class StudySection extends StatelessWidget {
                     onTap: () {
                       
                     },
-                    child: SectionDesign(text: "Video Section"),
+                    child: const SectionDesign(text: "Video Section"),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 5,),
             Row(
               children: [
                 Expanded(
                   child: GestureDetector(
-                    child: SectionDesign(text: "E-Book"),
+                    child: const SectionDesign(text: "E-Book"),
                   ),
                 ),
                 Expanded(
                   child: GestureDetector(
-                    child: SectionDesign(text: "English Care"),
+                    child: const SectionDesign(text: "English Care"),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 5,),
             Row(
               children: [
                 Expanded(
                   child: GestureDetector(
-                    child: SectionDesign(text: "Subject Care"),
+                    child: const SectionDesign(text: "Subject Care"),
                   ),
                 ),
                 Expanded(
                   child: GestureDetector(
-                    child: SectionDesign(text: "Bank job"),
+                    child: const SectionDesign(text: "Bank job"),
                   ),
                 ),
               ],
-            )
+            ),
+            const SizedBox(height: 5,),
           ],
         ),
       ),

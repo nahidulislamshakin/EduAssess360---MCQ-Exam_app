@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'package:eduasses360/View/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:page_transition/page_transition.dart';
+import '../View/home_page/home_page.dart';
 import '../model/question_model.dart';
 import '../services/api_services.dart';
 import '../services/firebase_services/firebase_services.dart';
@@ -53,7 +56,12 @@ class HomePageViewModel with ChangeNotifier {
     await FirebaseServices().logOut();
     if(FirebaseAuth.instance.currentUser == null)
     {
-      Navigator.pushReplacementNamed(context, RouteName.login);
+      Navigator.of(context).pushReplacement(PageTransition(
+        child: LoginPage(),
+        type: PageTransitionType.fade,
+        duration: Duration(milliseconds: 400),
+      )
+      );
     }
     else{
       Utils.redSnackBar(context: context, message: "Logout Failed");

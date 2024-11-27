@@ -14,12 +14,14 @@ class Utils{
 
   static redSnackBar({required BuildContext context, required String message}){
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message),backgroundColor: Colors.red,
+      duration: const Duration(seconds: 1),
     showCloseIcon: true,),
     );
   }
 
   static greenSnackBar({required BuildContext context, required String message}){
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message),backgroundColor: Colors.green,
+      duration: const Duration(seconds: 1),
       showCloseIcon: true,),
     );
   }

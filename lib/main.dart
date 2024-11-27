@@ -1,7 +1,9 @@
 import "package:eduasses360/utils/routes/routing.dart";
 import "package:eduasses360/view_model/loginPage_viewmodel.dart";
+import "package:eduasses360/view_model/main_pages_view_model.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:provider/provider.dart";
 import "/utils/routes/route_name.dart";
@@ -10,6 +12,9 @@ import "package:firebase_core/firebase_core.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyDtgFNbnq9Y7yJld59wrMvFHyYsljHwG7A",
@@ -38,6 +43,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<LoginPageViewModel>(
           create: (context) => LoginPageViewModel(),
+        ),
+        ChangeNotifierProvider<MainPagesViewModel>(
+          create: (context) => MainPagesViewModel(),
         )
       ],
       child: ScreenUtilInit(
@@ -45,7 +53,7 @@ class MyApp extends StatelessWidget {
         designSize: Size(deviceWidth,deviceHeight),
         minTextAdapt: true,
           splitScreenMode: false,
-        
+
         builder: (context, child) {
           return MaterialApp(
             theme: ThemeData(
@@ -73,7 +81,7 @@ class MyApp extends StatelessWidget {
               )
             ),
             debugShowCheckedModeBanner: false,
-            initialRoute: FirebaseAuth.instance.currentUser !=null ? RouteName.home : RouteName.login,
+            initialRoute: FirebaseAuth.instance.currentUser !=null ? RouteName.mainPage : RouteName.login,
             onGenerateRoute: RouteGenerator.generateRoute,
           );
         }

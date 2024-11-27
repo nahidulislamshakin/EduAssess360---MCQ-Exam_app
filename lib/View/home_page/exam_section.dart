@@ -17,29 +17,28 @@ class ExamSectionDesign extends StatelessWidget {
             EdgeInsets.only(top: 5.0.h, bottom: 8.h, left: 2.w, right: 2.w),
         child: Column(
           children: [
-            SizedBox(
-              width: double.infinity,
-              height: 20.h,
-              child: Center(
-                child: Text(
-                  "Exam Section",
-                  style: Theme.of(context).textTheme.titleMedium,
+            const SizedBox(height: 5,),
+            Center(
+              child: Text(
+                "Exam Section",
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontSize: 22
                 ),
               ),
             ),
             SizedBox(
-              height: 10.h,
+              height: 5.h,
             ),
             Row(
               children: [
                 Expanded(
                   child: GestureDetector(
                     onTap: () {},
-                    child: SectionDesign(text: "Weekly Model Test"),
+                    child: const SectionDesign(text: "Weekly Model Test"),
                   ),
                 ),
                 SizedBox(
-                  width: 5.w,
+                  width: 10.w,
                 ),
                 Expanded(
                   child: GestureDetector(
@@ -48,39 +47,42 @@ class ExamSectionDesign extends StatelessWidget {
                         print("GestureDetextor worked");
                       }
                     },
-                    child: SectionDesign(text: "BCS Preparation"),
+                    child: const SectionDesign(text: "BCS Preparation"),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 5,),
             Row(
               children: [
                 Expanded(
                   child: GestureDetector(
-                    child: SectionDesign(text: "Job Solution"),
+                    child: const SectionDesign(text: "Job Solution"),
                   ),
                 ),
                 Expanded(
                   child: GestureDetector(
-                    child: SectionDesign(text: "9th grade preparation"),
+                    child: const SectionDesign(text: "9th grade preparation"),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 5,),
             Row(
               children: [
                 Expanded(
                   child: GestureDetector(
-                    child: SectionDesign(text: "Subject Care"),
+                    child: const SectionDesign(text: "Subject Care"),
                   ),
                 ),
                 Expanded(
                   child: GestureDetector(
-                    child: SectionDesign(text: "Bank job"),
+                    child: const SectionDesign(text: "Bank job"),
                   ),
                 ),
               ],
-            )
+            ),
+            const SizedBox(height: 5,),
           ],
         ),
       ),

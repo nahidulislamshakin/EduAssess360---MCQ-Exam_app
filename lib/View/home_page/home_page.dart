@@ -7,25 +7,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends StatelessWidget {
+  HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
 
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-    final homeProver = Provider.of<HomePageViewModel>(context);
+    final homeProvider = Provider.of<HomePageViewModel>(context);
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        elevation: 25,
         iconTheme: const IconThemeData(color: Colors.black),
         centerTitle: true,
           backgroundColor: Colors.white70,
@@ -39,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      
+
 
       drawerEdgeDragWidth: deviceHeight/(1.5),
       drawerScrimColor: Colors.grey,
@@ -52,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           ),
             ListTile(
               onTap: () async {
-                await homeProver.firebaseLogOut(context: context);
+                await homeProvider.firebaseLogOut(context: context);
               },
               leading: const Icon(Icons.logout,color: Colors.black,size: 30,),
               title: Text("Logout",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 20.sp, fontWeight: FontWeight.bold),),
@@ -63,19 +58,16 @@ class _HomePageState extends State<HomePage> {
 
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(
-            left: 8.w,
-            right: 8.w,
-            top: 8.h,
-          ),
-          child: const SingleChildScrollView(
+          padding: EdgeInsets.all(10.r),
+          child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                 ExamSectionDesign(),
-                SizedBox(height: 15),
-                 StudySection(),
-                
+                SizedBox(height: 10.h,),
+                 const ExamSectionDesign(),
+                const SizedBox(height: 25),
+                 const StudySection(),
+
 
               ],
             ),
