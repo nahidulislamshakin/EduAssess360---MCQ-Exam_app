@@ -1,6 +1,8 @@
 import "package:eduasses360/utils/routes/routing.dart";
+import "package:eduasses360/view_model/admin_model_test_view_model.dart";
 import "package:eduasses360/view_model/loginPage_viewmodel.dart";
 import "package:eduasses360/view_model/main_pages_view_model.dart";
+import "package:eduasses360/view_model/model_test_view_model.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
@@ -46,6 +48,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<MainPagesViewModel>(
           create: (context) => MainPagesViewModel(),
+        ),
+        ChangeNotifierProvider<AdminModelTestViewModel>(
+          create: (context) => AdminModelTestViewModel(),
+        ),
+        ChangeNotifierProvider<ModelTestViewModel>(
+          create: (context) => ModelTestViewModel(),
         )
       ],
       child: ScreenUtilInit(

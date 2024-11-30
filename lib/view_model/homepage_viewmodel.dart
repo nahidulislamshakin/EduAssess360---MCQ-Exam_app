@@ -51,21 +51,5 @@ class HomePageViewModel with ChangeNotifier {
     return answerList;
   }
 
-  //Firebase Log Out
-  Future<void> firebaseLogOut({required BuildContext context}) async {
-    await FirebaseServices().logOut();
-    if(FirebaseAuth.instance.currentUser == null)
-    {
-      Navigator.of(context).pushReplacement(PageTransition(
-        child: LoginPage(),
-        type: PageTransitionType.fade,
-        duration: Duration(milliseconds: 400),
-      )
-      );
-    }
-    else{
-      Utils.redSnackBar(context: context, message: "Logout Failed");
-      return;
-    }
-  }
+
 }

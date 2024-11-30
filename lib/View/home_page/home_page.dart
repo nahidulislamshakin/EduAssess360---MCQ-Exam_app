@@ -1,7 +1,10 @@
+import 'package:eduasses360/View/admin_page/admin_home_page.dart';
 import 'package:eduasses360/View/home_page/exam_section.dart';
 import 'package:eduasses360/View/home_page/study_section.dart';
 import 'package:eduasses360/utils/routes/route_name.dart';
 import 'package:eduasses360/view_model/homepage_viewmodel.dart';
+import 'package:eduasses360/view_model/loginPage_viewmodel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +20,9 @@ class HomePage extends StatelessWidget {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
     final homeProvider = Provider.of<HomePageViewModel>(context);
-    return Scaffold(
+    final logProvider = Provider.of<LoginPageViewModel>(context);
+
+    return FirebaseAuth.instance.currentUser?.email == "admin@admin1221.com" ? AdminHomePage() : Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         elevation: 25,
@@ -47,7 +52,7 @@ class HomePage extends StatelessWidget {
           ),
             ListTile(
               onTap: () async {
-                await homeProvider.firebaseLogOut(context: context);
+                await logProvider.firebaseLogOut(context: context);
               },
               leading: const Icon(Icons.logout,color: Colors.black,size: 30,),
               title: Text("Logout",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 20.sp, fontWeight: FontWeight.bold),),

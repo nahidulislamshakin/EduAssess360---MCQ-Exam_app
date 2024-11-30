@@ -62,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
     final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
     final availableHeight = height - keyboardHeight;
 
+
     return logProvider.isUserLogedIn == true
         ? HomePage()
         : Scaffold(

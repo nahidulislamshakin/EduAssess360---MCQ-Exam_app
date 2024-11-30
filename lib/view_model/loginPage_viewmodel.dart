@@ -6,7 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../View/admin_page/admin_home_page.dart';
 import '../View/home_page/home_page.dart';
+import '../View/login_page.dart';
 
 class LoginPageViewModel with ChangeNotifier {
 
@@ -65,9 +67,12 @@ class LoginPageViewModel with ChangeNotifier {
     welComeText();
   }
 
+   bool _isAdmin = false;
+  bool get isAdmin => _isAdmin;
 
   void isLogged() {
     _isUserLogedIn = FirebaseAuth.instance.currentUser == null ? false : true;
+    _isAdmin = FirebaseAuth.instance.currentUser?.email == "admin@admin1221.com" ? true : false;
     notifyListeners();
   }
 
@@ -114,20 +119,60 @@ class LoginPageViewModel with ChangeNotifier {
 
   }
 
+  //Firebase Log Out
+  Future<void> firebaseLogOut({required BuildContext context}) async {
+    await FirebaseServices().logOut();
+    if(FirebaseAuth.instance.currentUser == null)
+    {
+      _isAdmin = false;
+      _isUserLogedIn = false;
+      notifyListeners();
+      Navigator.of(context).pushReplacement(PageTransition(
+        child: const LoginPage(),
+        type: PageTransitionType.fade,
+        duration: const Duration(milliseconds: 400),
+      )
+      );
+      print("successfull");
+    }
+    else{
+      Utils.redSnackBar(context: context, message: "Logout Failed");
+      print("failed");
+
+      return;
+    }
+  }
+
   Future<void> firebaseLogin({required String email, required String password, required BuildContext context}) async {
     loadingButton(true);
     final user = await FirebaseServices().login(email: email, password: password);
     loadingButton(false);
     if(FirebaseAuth.instance.currentUser !=null)
       {
-      //  Utils.greenSnackBar(context: context, message: "Login Successful");
+        if(email=="admin@admin1221.com"){
+          _isAdmin = true;
+          notifyListeners();
+        }
+       // _isUserLogedIn = true;
+     //   notifyListeners();
+       Utils.greenSnackBar(context: context, message: "Login Successful");
         print("Email : ${FirebaseAuth.instance.currentUser?.email}\nThanks\n");
-        Navigator.of(context).pushReplacement(PageTransition(
+        if(email=="admin@admin1221.com"){
+          Navigator.of(context).pushReplacement(PageTransition(
+            child: AdminHomePage(),
+            type: PageTransitionType.fade,
+            duration: const Duration(milliseconds: 400),
+          )
+          );
+        }
+        else{
+          Navigator.of(context).pushReplacement(PageTransition(
             child: HomePage(),
             type: PageTransitionType.fade,
-        duration: const Duration(milliseconds: 400),
-        )
-           );
+            duration: const Duration(milliseconds: 400),
+          )
+          );
+        }
       }
     else{
       Utils.redSnackBar(context: context, message: "Login Failed");
@@ -141,16 +186,28 @@ class LoginPageViewModel with ChangeNotifier {
     loadingButton(false);
     if(FirebaseAuth.instance.currentUser !=null)
     {
+      _isUserLogedIn = true;
+      notifyListeners();
       //  Utils.greenSnackBar(context: context, message: "Login Successful");
       if (kDebugMode) {
         print("Email : ${FirebaseAuth.instance.currentUser?.email}\nThanks\n");
       }
-      Navigator.of(context).pushReplacement(PageTransition(
-        child: HomePage(),
-        type: PageTransitionType.fade,
-        duration: const Duration(milliseconds: 400),
-      )
-      );
+      // if(email=="admin@admin1221.com"){
+      //   Navigator.of(context).pushReplacement(PageTransition(
+      //     child: AdminHomePage(),
+      //     type: PageTransitionType.fade,
+      //     duration: const Duration(milliseconds: 400),
+      //   )
+      //   );
+      // }
+      // else{
+      //   Navigator.of(context).pushReplacement(PageTransition(
+      //     child: HomePage(),
+      //     type: PageTransitionType.fade,
+      //     duration: const Duration(milliseconds: 400),
+      //   )
+      //   );
+      // }
       _isLogin = true;
       welComeText();
     }

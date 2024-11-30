@@ -1,9 +1,8 @@
 import 'package:eduasses360/View/home_page/section_design.dart';
+import 'package:eduasses360/utils/routes/route_name.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../utils/routes/route_name.dart';
 
 class ExamSectionDesign extends StatelessWidget {
   const ExamSectionDesign({super.key});
@@ -36,8 +35,8 @@ class ExamSectionDesign extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, RouteName.modelTestPage,arguments: "weekly_model_test");
-
+                      const examType = "weekly_model_test";
+                      Navigator.pushNamed(context, RouteName.adminModelTestPage,arguments: examType);
                     },
                     child: const SectionDesign(text: "Weekly Model Test"),
                   ),
@@ -78,8 +77,8 @@ class ExamSectionDesign extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: (){
-                      Navigator.pushNamed(context, RouteName.modelTestPage,arguments: "subject_care");
-
+                      const examType = "subject_care";
+                      Navigator.pushNamed(context, RouteName.adminModelTestPage,arguments: examType);
                     },
                     child: const SectionDesign(text: "Subject Care"),
                   ),

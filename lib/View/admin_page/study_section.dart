@@ -1,12 +1,9 @@
 import 'package:eduasses360/View/home_page/section_design.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../utils/routes/route_name.dart';
-
-class ExamSectionDesign extends StatelessWidget {
-  const ExamSectionDesign({super.key});
+class StudySection extends StatelessWidget {
+  const StudySection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,37 +19,32 @@ class ExamSectionDesign extends StatelessWidget {
             const SizedBox(height: 5,),
             Center(
               child: Text(
-                "Exam Section",
+                "Study Section",
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontSize: 22
+                    fontSize: 22
                 ),
               ),
             ),
             SizedBox(
-              height: 5.h,
+              height:5.h,
             ),
             Row(
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteName.modelTestPage,arguments: "weekly_model_test");
-
-                    },
-                    child: const SectionDesign(text: "Weekly Model Test"),
+                    onTap: () {},
+                    child: const SectionDesign(text: "PDF Notes"),
                   ),
                 ),
                 SizedBox(
-                  width: 10.w,
+                  width: 5.w,
                 ),
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      if (kDebugMode) {
-                        print("GestureDetextor worked");
-                      }
+                      
                     },
-                    child: const SectionDesign(text: "BCS Preparation"),
+                    child: const SectionDesign(text: "Video Section"),
                   ),
                 ),
               ],
@@ -62,12 +54,12 @@ class ExamSectionDesign extends StatelessWidget {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    child: const SectionDesign(text: "Job Solution"),
+                    child: const SectionDesign(text: "E-Book"),
                   ),
                 ),
                 Expanded(
                   child: GestureDetector(
-                    child: const SectionDesign(text: "9th grade preparation"),
+                    child: const SectionDesign(text: "English Care"),
                   ),
                 ),
               ],
@@ -77,10 +69,6 @@ class ExamSectionDesign extends StatelessWidget {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context, RouteName.modelTestPage,arguments: "subject_care");
-
-                    },
                     child: const SectionDesign(text: "Subject Care"),
                   ),
                 ),
