@@ -48,7 +48,14 @@ class HomePage extends StatelessWidget {
         child: ListView(
           //padding: EdgeInsets.only(right: 30),
           children:[ DrawerHeader(
-            child: Text("Welcome",style: Theme.of(context).textTheme.bodyLarge,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(FirebaseAuth.instance.currentUser?.email.toString() ?? '',style: Theme.of(context).textTheme.bodyLarge,),
+                const SizedBox(height: 10,),
+              ],
+            ),
           ),
             ListTile(
               onTap: () async {

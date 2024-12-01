@@ -15,9 +15,13 @@ class AdminModelTestViewModel with ChangeNotifier{
   List<Question>? get questionList => _questionList;
 
 
+  bool _isSearching = true;
+  bool get isSearching => _isSearching;
 
   //fetching exam list from firebase
   Future<void> fetchExams(String type) async {
+    _isSearching = true;
+    notifyListeners();
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     QuerySnapshot snapshot = await firestore
@@ -28,6 +32,7 @@ class AdminModelTestViewModel with ChangeNotifier{
     _examsList = snapshot.docs.map((doc) {
       return Exam.fromFirestore(doc);
     }).toList();
+    _isSearching = false;
     notifyListeners();
     print(_examsList);
   }

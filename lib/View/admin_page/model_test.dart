@@ -20,6 +20,7 @@ class AdminModelTest extends StatefulWidget{
 class _AdminModelTestState extends State<AdminModelTest> {
   TextEditingController nameController = TextEditingController();
 
+  bool isSearching = true;
   @override
   void initState() {
     Future.microtask((){
@@ -32,7 +33,8 @@ class _AdminModelTestState extends State<AdminModelTest> {
   Widget build(BuildContext context) {
 
     final modelProvider = Provider.of<AdminModelTestViewModel>(context);
-    return Scaffold(
+    return
+    Scaffold(
       appBar:  AppBar(
         elevation: 25,
         iconTheme: const IconThemeData(color: Colors.black),
@@ -107,7 +109,9 @@ class _AdminModelTestState extends State<AdminModelTest> {
           },
           child: const Icon(Icons.add),
           ),
-      body: SafeArea(
+      body: modelProvider.isSearching == true ?
+      const Center(child: CircularProgressIndicator(color: Colors.black,),)
+          : SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Consumer<AdminModelTestViewModel>(

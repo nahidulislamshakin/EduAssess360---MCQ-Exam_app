@@ -204,7 +204,6 @@ class _StudentQuestionPageState extends State<StudentQuestionPage> {
       print("Error fetching questions: $e");
     }
   }
-
   /// Calculate exam results
   void calculateResults() {
     correctAnswers = 0;
@@ -212,14 +211,22 @@ class _StudentQuestionPageState extends State<StudentQuestionPage> {
     wrongByCategory.clear();
 
     for (int i = 0; i < questions.length; i++) {
-      final correctAnswer = questions[i]['correct_answer'];
-      final selectedAnswer = studentAnswers[i];
-      final category = questions[i]['category'];
+      final correctAnswer = questions[i]['correct_answer']; // Expected to be an int
+      final selectedAnswer = studentAnswers[i]; // Student's selected answer
+      final category = questions[i]['category'] ?? 'Uncategorized'; // Fallback category
 
+      // Ensure both correctAnswer and selectedAnswer are valid
+      if (correctAnswer == null || selectedAnswer == -1) {
+        continue; // Skip if no answer is provided or no correct answer is set
+      }
+
+      // Check if the answer is correct
       if (selectedAnswer == correctAnswer) {
         correctAnswers++;
       } else {
         wrongAnswers++;
+
+        // Increment the count of wrong answers for the category
         if (!wrongByCategory.containsKey(category)) {
           wrongByCategory[category] = 0;
         }
@@ -228,31 +235,31 @@ class _StudentQuestionPageState extends State<StudentQuestionPage> {
     }
   }
 
-  // /// Submit results to Firestore
-  // Future<void> submitResults() async {
-  //   if (wrongByCategory.isNotEmpty) {
-  //     final maxWrongCategory = wrongByCategory.entries.reduce((a, b) => a.value > b.value ? a : b).key;
   //
-  //     await firestore.collection('student_results').add({
-  //       'examId': widget.id,
-  //       'examName': widget.name,
-  //       'correctAnswers': correctAnswers,
-  //       'wrongAnswers': wrongAnswers,
-  //       'maxWrongCategory': maxWrongCategory,
-  //       'submittedAt': DateTime.now().toIso8601String(),
-  //     });
+  // /// Calculate exam results
+  // void calculateResults() {
+  //   correctAnswers = 0;
+  //   wrongAnswers = 0;
+  //   wrongByCategory.clear();
   //
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text("Exam submitted successfully!")),
-  //     );
+  //   for (int i = 0; i < questions.length; i++) {
+  //     final correctAnswer = questions[i]['correct_answer'];
+  //     final selectedAnswer = studentAnswers[i];
+  //     final category = questions[i]['category'];
   //
-  //     Navigator.pop(context);
-  //   } else {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text("No questions answered!")),
-  //     );
+  //     if (selectedAnswer == correctAnswer) {
+  //       correctAnswers++;
+  //     } else {
+  //       wrongAnswers++;
+  //       if (!wrongByCategory.containsKey(category)) {
+  //         wrongByCategory[category] = 0;
+  //       }
+  //       wrongByCategory[category] = wrongByCategory[category]! + 1;
+  //     }
   //   }
   // }
+
+
 
   Future<void> submitResults(String userId) async {
     if (wrongByCategory.isNotEmpty) {

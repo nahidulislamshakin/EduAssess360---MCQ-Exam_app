@@ -259,7 +259,7 @@ class _LoginPageState extends State<LoginPage> {
                                 TextButton(
                                   onPressed: () {
                                     Utils.toastMessage(
-                                        "Sorry, This feature is currently off by the App Developer.");
+                                        "Sorry, This feature is currently unavailable.");
                                   },
                                   child: Text(
                                     "Forget Password?",

@@ -49,6 +49,7 @@ class ExamSectionDesign extends StatelessWidget {
                     onTap: () {
                       if (kDebugMode) {
                         print("GestureDetextor worked");
+                        Navigator.pushNamed(context, RouteName.adminModelTestPage,arguments: "bcs_model_test");
                       }
                     },
                     child: const SectionDesign(text: "BCS Preparation"),
@@ -61,11 +62,17 @@ class ExamSectionDesign extends StatelessWidget {
               children: [
                 Expanded(
                   child: GestureDetector(
+                    onTap: (){
+                      Navigator.pushNamed(context, RouteName.adminModelTestPage,arguments: "job_model_test");
+                    },
                     child: const SectionDesign(text: "Job Solution"),
                   ),
                 ),
                 Expanded(
                   child: GestureDetector(
+                    onTap: (){
+                      Navigator.pushNamed(context, RouteName.adminModelTestPage,arguments: "9th_grade_model_test");
+                    },
                     child: const SectionDesign(text: "9th grade preparation"),
                   ),
                 ),
@@ -85,6 +92,9 @@ class ExamSectionDesign extends StatelessWidget {
                 ),
                 Expanded(
                   child: GestureDetector(
+                    onTap: (){
+                      Navigator.pushNamed(context, RouteName.adminModelTestPage,arguments: "bank_job_model_test");
+                    },
                     child: const SectionDesign(text: "Bank job"),
                   ),
                 ),

@@ -51,7 +51,10 @@ class _ModelTestPageState extends State<ModelTestPage> {
       ),
 
 
-      body: SafeArea(
+      body: modelProvider.isSearching == true ?
+      const Center(child: CircularProgressIndicator(color: Colors.black,),)
+      :
+      SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Consumer<AdminModelTestViewModel>(
