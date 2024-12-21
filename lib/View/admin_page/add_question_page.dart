@@ -71,7 +71,7 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
         option3Controller.text,
         option4Controller.text,
       ],
-      'correct_answer': int.parse(correctAnswerController.text),
+      'correct_answer': (int.parse(correctAnswerController.text))-1,
       'category': categoryController.text,
     });
   }

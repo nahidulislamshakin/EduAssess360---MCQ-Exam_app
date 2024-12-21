@@ -204,6 +204,7 @@ class _StudentQuestionPageState extends State<StudentQuestionPage> {
       print("Error fetching questions: $e");
     }
   }
+
   /// Calculate exam results
   void calculateResults() {
     correctAnswers = 0;
@@ -262,14 +263,18 @@ class _StudentQuestionPageState extends State<StudentQuestionPage> {
 
 
   Future<void> submitResults(String userId) async {
-    if (wrongByCategory.isNotEmpty) {
-      final maxWrongCategory = wrongByCategory.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+    String? maxWrongCategory;
+    if (wrongAnswers>0) {
+      maxWrongCategory = wrongByCategory.entries
+          .reduce((a, b) => a.value > b.value ? a : b)
+          .key;
+    }
 
       final resultData = {
         'examType': widget.name,
         'score': correctAnswers,
         'wrongAnswers': wrongAnswers,
-        'maxWrongCategory': maxWrongCategory,
+        'maxWrongCategory': maxWrongCategory ?? '',
         'date': DateTime.now().toIso8601String(),
       };
 
@@ -277,15 +282,11 @@ class _StudentQuestionPageState extends State<StudentQuestionPage> {
       await firestore.collection('users').doc(userId).collection('exams').doc(widget.id).set(resultData);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Exam submitted successfully!")),
+        const SnackBar(content: Text("Exam submitted successfully!"),backgroundColor: Colors.green,),
       );
 
       Navigator.pop(context);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("No questions answered!")),
-      );
-    }
+
   }
 
 
@@ -323,7 +324,7 @@ class _StudentQuestionPageState extends State<StudentQuestionPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${index + 1}. ${question['question']}",
+                    "Ques.${index + 1} :  ${question['question']}",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8.0),
@@ -333,16 +334,22 @@ class _StudentQuestionPageState extends State<StudentQuestionPage> {
                     itemCount: question['options'].length,
                     itemBuilder: (context, optionIndex) {
                       return RadioListTile<int>(
+                        selected: studentAnswers[index] == -1 ? false : true,
+                        selectedTileColor: Colors.blue.shade50,
                         value: optionIndex,
                         groupValue: studentAnswers[index], // The selected value for this question
                         onChanged: (value) {
+                          print("value : $value");
                           if (value != null) {
                             setState(() {
                               studentAnswers[index] = value; // Update the selected answer
                             });
                           }
                         },
-                        title: Text(question['options'][optionIndex]),
+                        title: Text(question['options'][optionIndex],style: TextStyle(
+                            fontSize: 14.sp,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold),),
                         activeColor: Colors.black, // Highlight selected option
                       );
                     },
@@ -373,7 +380,7 @@ class _StudentQuestionPageState extends State<StudentQuestionPage> {
         onPressed: () async {
           if (studentAnswers.contains(-1)) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Please answer all questions!")),
+              const SnackBar(content: Text("Please answer all questions!"),backgroundColor: Colors.red,),
             );
             return;
           }
