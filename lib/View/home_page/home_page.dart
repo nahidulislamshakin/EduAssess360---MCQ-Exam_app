@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
                         children: [
                           TextButton(
                             onPressed: (){
-
+                              Navigator.pushNamed(context, RouteName.studentProfilePage);
                             },
                             child:Text(FirebaseAuth.instance.currentUser?.email
                                     .toString() ??
