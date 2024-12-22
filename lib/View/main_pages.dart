@@ -9,11 +9,12 @@ class MainPages extends StatelessWidget {
     final mainPageProvider = Provider.of<MainPagesViewModel>(context);
 
     return Scaffold(
-      body: mainPageProvider.pages[mainPageProvider.selectedIndex],
+      body:
+      mainPageProvider.pages[mainPageProvider.selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index){
-          mainPageProvider.selectIndex(0);
-        },
+          mainPageProvider.selectIndex(index);
+        },currentIndex: mainPageProvider.selectedIndex,
         backgroundColor: Colors.white70,
         elevation: 25,
         enableFeedback: true,
@@ -25,10 +26,6 @@ class MainPages extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.home),
           label: "Home",
           tooltip: "Homa Page"
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications),
-              label: "Notifications",
-              tooltip: "Notifications"
           ),
           BottomNavigationBarItem(icon: Icon(Icons.person),
               label: "Profile",

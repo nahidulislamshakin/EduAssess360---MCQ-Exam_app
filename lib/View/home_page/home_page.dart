@@ -10,6 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../view_model/student_profile_view_model.dart';
+
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
@@ -21,6 +23,7 @@ class HomePage extends StatelessWidget {
     final deviceHeight = MediaQuery.of(context).size.height;
     final homeProvider = Provider.of<HomePageViewModel>(context);
     final logProvider = Provider.of<LoginPageViewModel>(context);
+    final studentProfileProvider = Provider.of<StudentProfileProvider>(context);
 
     return FirebaseAuth.instance.currentUser?.email == "admin@admin1221.com"
         ? AdminHomePage()
@@ -60,39 +63,60 @@ class HomePage extends StatelessWidget {
                   //padding: EdgeInsets.only(right: 30),
                   children: [
                     DrawerHeader(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextButton(
-                            onPressed: (){
-                              Navigator.pushNamed(context, RouteName.studentProfilePage);
-                            },
-                            child:Text(FirebaseAuth.instance.currentUser?.email
-                                    .toString() ??
-                                '',
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                        ],
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, RouteName.studentProfilePage);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                             SizedBox(
+                              height: 4.h,
+                            ),
+                            ClipOval(
+                              child: Image.asset(
+                                "assets/images/no_person.jpg",
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                             SizedBox(
+                              height: 4.h,
+                            ),
+                            Text(
+                              studentProfileProvider.studentData?.name
+                                      .toString() ??
+                                  '',
+                              style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     ListTile(
-                      trailing: Icon(Icons.keyboard_arrow_right_outlined,color: Colors.black,size: 30,),
+                      trailing: const Icon(
+                        Icons.keyboard_arrow_right_outlined,
+                        color: Colors.black,
+                        size: 25,
+                      ),
                       onTap: () async {
                         await logProvider.firebaseLogOut(context: context);
                       },
                       leading: const Icon(
                         Icons.logout,
                         color: Colors.black,
-                        size: 30,
+                        size: 25,
                       ),
                       title: Text(
                         "Logout",
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: 20.sp, fontWeight: FontWeight.normal),
+                            fontSize: 16.sp, fontWeight: FontWeight.normal),
                       ),
                     ),
                   ]),
