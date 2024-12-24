@@ -7,4 +7,5 @@ class RouteName{
   static const String addQuestionPage = "add_question_page";
   static const String StudentQuestionPage = "attend_exam";
   static const String studentProfilePage = "student_profile_page";
+  static const String addSuggestionPage = "add_suggestion_page";
 }

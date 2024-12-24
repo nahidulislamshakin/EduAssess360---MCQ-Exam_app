@@ -28,6 +28,9 @@ class StudentProfileProvider with ChangeNotifier{
      Map<String,dynamic>? weak = {};
     for (var exam in examsSnapshot.docs) {
       final maxWrongCategory = exam.data()['maxWrongCategory'];
+      if(maxWrongCategory == '-1'){
+        continue;
+      }
       if (maxWrongCategory != null) {
         print("max wrong category : ${maxWrongCategory}");
         weak[maxWrongCategory] = (weak[maxWrongCategory] ?? 0) + 1;

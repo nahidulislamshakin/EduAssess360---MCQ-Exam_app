@@ -2,6 +2,7 @@ import 'package:eduasses360/View/admin_page/add_question_page.dart';
 import 'package:eduasses360/View/admin_page/model_test.dart';
 import 'package:eduasses360/View/home_page/home_page.dart';
 import 'package:eduasses360/View/main_pages.dart';
+import '../../View/admin_page/add_suggestion.dart';
 import '../../View/home_page/attend_exam.dart';
 import '../../View/login_page.dart';
 import '../../View/model_test_page.dart';
@@ -78,6 +79,10 @@ class RouteGenerator{
 
       case RouteName.mainPage:
         return MaterialPageRoute(builder: (BuildContext context)=> MainPages(),);
+
+      case RouteName.addSuggestionPage:
+        return MaterialPageRoute(builder: (BuildContext context)=> const AdminSuggestionAddPage());
+
 
       default: return Utils.toastMessage("No route found");
     }

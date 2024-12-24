@@ -2,6 +2,8 @@ import 'package:eduasses360/View/home_page/section_design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../utils/routes/route_name.dart';
+
 class StudySection extends StatelessWidget {
   const StudySection({super.key});
 
@@ -33,7 +35,7 @@ class StudySection extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {},
-                    child: const SectionDesign(text: "PDF Notes"),
+                    child: const SectionDesign(text: "Bank Job"),
                   ),
                 ),
                 SizedBox(
@@ -74,7 +76,10 @@ class StudySection extends StatelessWidget {
                 ),
                 Expanded(
                   child: GestureDetector(
-                    child: const SectionDesign(text: "Bank job"),
+                    onTap: (){
+                      Navigator.pushNamed(context, RouteName.addSuggestionPage);
+                    },
+                    child: const SectionDesign(text: "Others"),
                   ),
                 ),
               ],
